@@ -4,7 +4,7 @@
 
 input random
 N = 10 
-numbers = [random.randint(1, 100)
+numbers = [random.randint(1, 10)
 for _ in range(N)]
 print(f"сгенерированный список {N} элементов:")
 print(numbers)
