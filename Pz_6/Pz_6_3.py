@@ -2,24 +2,30 @@
 # рассположенные между его минимальным и максимальным элементами
 # (не включая минимальный и максимальный элементы)
 
-N = int(input("Введите размер списка N: "))
+import random
 
-numbers = list(map(int, input(f"Введите {N} чисел : ").split()))
+N = 10
+numbers = [random.randint(1, 15) for _ in range(N)]
 
-if len(numbers) == N:
-    min_index = numbers.index(min(numbers))
-    max_index = numbers.index(max(numbers))
+print(f"Случайный список: {numbers}")
 
-    print(f"Минимальный элемент: {numbers[min_index]} на позиции {min_index + 1}")
-    print(f"Максимальный элемент: {numbers[max_index]} на позиции {max_index + 1}")
+min_idx = 0
+max_idx = 0
 
-    left = min(min_index, max_index)
-    right = max(min_index, max_index)
+for i in range(1, N):
+    if numbers[i] < numbers[min_idx]:
+        min_idx = i
+    if numbers[i] > numbers[max_idx]:
+        max_idx = i
 
-    print(f"Обнуляем элементы между позициями {left + 2} и {right} (не включая границы)")
+print(f"Минимальный элемент: {numbers[min_idx]} (индекс {min_idx})")
+print(f"Максимальный элемент: {numbers[max_idx]} (индекс {max_idx})")
 
-    for i in range(left + 1, right):
-        numbers[i] = 0
+start = min(min_idx, max_idx) + 1
+end = max(min_idx, max_idx)
 
-    print("Результат:")
-    print(numbers)
+for i in range(start, end):
+    numbers[i] = 0
+
+print(f"После обнуления: {numbers}")
+
