@@ -3,14 +3,17 @@
 #удалить 'profession', вывести все пары ключ-значение и проверить наличие 'age'.
 
 my_dict = {'name': 'Alice', 'age': 35, 'city': 'New York', 'profession': 'Doctor'}
-
-del my_dict['profession']
+try:
+    my_dict.pop('profession')
+    print("Ключ 'profession' успешно удален")
+except KeyError:
+    print("Ключ 'profession' не найден в словаре, удаление не выполнено")
 
 print("Все пары ключ-значение после удаления:")
 for key, value in my_dict.items():
     print(f"{key}: {value}")
 
 if 'age' in my_dict:
-    print("\nКлюч 'age' существует в словаре")
+    print("Ключ 'age' существует в словаре")
 else:
-    print("\nКлюча 'age' нет в словаре")
+    print("Ключа 'age' нет в словаре")

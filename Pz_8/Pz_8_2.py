@@ -8,7 +8,7 @@ text = "петров иван покс-29 5 4 3 2 5 4 4 5 4"
 parts = text.split()
 
 student_info = {
-    "фамилия": parts,
+    "фамилия": parts [0],
     "имя": parts [1],
     "номер_покс": parts [2],
     "оценки": [int(x) for x in parts[3:]]
@@ -21,5 +21,5 @@ print(f"Фамилия: {student_info['фамилия']}")
 print(f"Имя: {student_info['имя']}")
 print(f"Номер ПОКС: {student_info['номер_покс']}")
 print(f"Оценки: {student_info['оценки']}")
-print(f"\nСреднее арифметическое оценок: {average_grade:.2f}")
+print(f"Среднее арифметическое оценок: {average_grade:.2f}")
 
