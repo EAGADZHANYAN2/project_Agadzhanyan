@@ -6,21 +6,25 @@
 #полученной последовательности.
 
 import random
+from functools import reduce
+from operator import mul
 
 n = 8
-A = [random.randint(1, 15) for _ in range(n)]
 
-print("Последовательность A:", A)
+A = list(map(lambda _: random.randint(1, 20), range(n)))
+
+print("A =", A)
 
 mid = n // 2
 B = A[:mid]
 C = A[mid:]
 
-print("Последовательность B (первая половина):", B)
-print("Последовательность C (вторая половина):", C)
+print("B =", B)
+print("C =", C)
 
-products = [B[i] * C[i] for i in range(mid)]
-print("Произведения соответствующих элементов B и C:", products)
+products = list(map(mul, B, C))
+print("Произведения =", products)
 
-average = sum(products) / mid
-print(f"Среднее арифметическое полученной последовательности: {average:.2f}")
+total = reduce(lambda acc, x: acc + x, products, 0)
+average = total / len(products) if products else 0
+print(f"Среднее = {average:.2f}")
