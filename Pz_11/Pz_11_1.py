@@ -5,30 +5,22 @@
 #соответствующих элементов последовательностей В и С. Найти среднее арифметической
 #полученной последовательности.
 
-from functools import reduce
+import random
 
-def main():
-    n = int(input("Введите чётное число n: "))
-    while n % 2 != 0:
-        n = int(input("n должно быть чётным. Повторите ввод: "))
+n = 8
+A = [random.randint(1, 15) for _ in range(n)]
 
-    print(f"Введите {n} чисел:")
-    A = list(map(float, [input() for _ in range(n)]))
+print("Последовательность A:", A)
 
-    print("\nПоследовательность A:", A)
+mid = n // 2
+B = A[:mid]
+C = A[mid:]
 
-    mid = n // 2
-    B = A[:mid]
-    C = A[mid:]
+print("Последовательность B (первая половина):", B)
+print("Последовательность C (вторая половина):", C)
 
-    print("Последовательность B (первая половина):", B)
-    print("Последовательность C (вторая половина):", C)
+products = [B[i] * C[i] for i in range(mid)]
+print("Произведения соответствующих элементов B и C:", products)
 
-    products = list(map(lambda pair: pair[0] * pair[1], zip(B, C)))
-    print("\nПроизведения соответствующих элементов (B_i * C_i):", products)
-
-    average = sum(products) / len(products) if products else 0
-    print(f"Среднее арифметическое полученной последовательности: {average:.2f}")
-
-if __name__ == "__main__":
-    main()
+average = sum(products) / mid
+print(f"Среднее арифметическое полученной последовательности: {average:.2f}")
