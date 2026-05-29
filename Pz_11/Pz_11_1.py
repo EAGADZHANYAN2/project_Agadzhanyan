@@ -7,10 +7,8 @@
 
 import random
 from functools import reduce
-from operator import mul
 
 n = 8
-
 A = list(map(lambda _: random.randint(1, 20), range(n)))
 
 print("A =", A)
@@ -22,7 +20,7 @@ C = A[mid:]
 print("B =", B)
 print("C =", C)
 
-products = list(map(mul, B, C))
+products = list(map(lambda x, y: x * y, B, C))
 print("Произведения =", products)
 
 total = reduce(lambda acc, x: acc + x, products, 0)
