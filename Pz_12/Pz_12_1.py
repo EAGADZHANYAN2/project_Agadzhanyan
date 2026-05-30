@@ -1,11 +1,17 @@
 #Вариант 2.
 #1. В матрице найти минимальный и максимальные элементы
+
 import random
 
-rows, cols = 4, 5
-matrix = [[random.randint(-10, 20) for _ in range(cols)] for _ in range(rows)]
+rows = int(input("Введите количество строк: "))
+cols = int(input("Введите количество столбцов: "))
 
-print("Матрица:")
+min_val = int(input("Введите минимальное значение элемента: "))
+max_val = int(input("Введите максимальное значение элемента: "))
+
+matrix = [[random.randint(min_val, max_val) for _ in range(cols)] for _ in range(rows)]
+
+print("\nСгенерированная матрица:")
 for row in matrix:
     print(" ".join(f"{x:4d}" for x in row))
 
