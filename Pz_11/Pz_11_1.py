@@ -6,13 +6,14 @@
 #полученной последовательности.
 
 import random
-from functools import reduce
 
-n = 8
+n = int(input("Введите четное количество элементов n: "))
+while n % 2 != 0:
+    n = int(input("Ошибка! n должно быть четным."))
+
 A = list(map(lambda _: random.randint(1, 20), range(n)))
 
 print("A =", A)
-
 mid = n // 2
 B = A[:mid]
 C = A[mid:]
@@ -23,6 +24,6 @@ print("C =", C)
 products = list(map(lambda x, y: x * y, B, C))
 print("Произведения =", products)
 
-total = reduce(lambda acc, x: acc + x, products, 0)
+total = sum(products)
 average = total / len(products) if products else 0
 print(f"Среднее = {average:.2f}")
