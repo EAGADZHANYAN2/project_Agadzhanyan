@@ -18,10 +18,7 @@ third = rows // 3
 
 if third == 0:
     sum_neg = 0
-    print(f"\nВ матрице меньше 3 строк (rows={rows})")
-    print(f"Первая треть не содержит ни одной строки")
-    print(f"Сумма отрицательных элементов = {sum_neg}")
+    print(f"\nВ матрице меньше 3 строк (rows={rows}), сумма отрицательных = {sum_neg}")
 else:
     sum_neg = sum(x for row in matrix[:third] for x in row if x < 0)
-    print(f"\nПервая треть матрицы включает первые {third} строк(и)")
-    print(f"Сумма отрицательных элементов: {sum_neg}")
+    print(f"\nСумма отрицательных элементов в первой трети (первые {third} строк): {sum_neg}")
