@@ -1,9 +1,6 @@
 #Вариант 2
 #https://professorweb.ru/my/html/html5/level2/files/img46023.jpg
 
-#Вариант 2
-#https://professorweb.ru/my/html/html5/level2/files/img46023.jpg
-
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
