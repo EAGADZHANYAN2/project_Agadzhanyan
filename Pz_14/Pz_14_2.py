@@ -19,92 +19,91 @@
 #print("4. Перечни туров равны?", voyage == reina_tur)
 
 from tkinter import *
-from tkinter import messagebox
 
+DEFAULT_V = "Мексика, Канада, Израиль, Италия"
+DEFAULT_R = "Англия, Япония, Канада, ЮАР"
+
+def get_set(text_widget, default_str):
+    val = text_widget.get("1.0", END).strip()
+    if not val:
+        text_widget.delete("1.0", END)
+        text_widget.insert("1.0", default_str)
+        val = default_str
+    return set(w.strip() for w in val.replace(",", " ").split() if w.strip())
 
 def compare_tours():
-    to_set = lambda txt: set(w.strip() for w in txt.replace(",", " ").split() if w.strip())
-    v, r = to_set(text_voyage.get("1.0", END).strip()), to_set(text_reina.get("1.0", END).strip())
-
-    if not v:
-        v = {"Мексика", "Канада", "Израиль", "Италия"}
-        text_voyage.delete("1.0", END)
-        text_voyage.insert("1.0", "Мексика, Канада, Израиль, Италия")
-    if not r:
-        r = {"Англия", "Япония", "Канада", "ЮАР"}
-        text_reina.delete("1.0", END)
-        text_reina.insert("1.0", "Англия, Япония, Канада, ЮАР")
+    v = get_set(text_voyage, DEFAULT_V)
+    r = get_set(text_reina, DEFAULT_R)
 
     only_v, only_r, common = v - r, r - v, v & r
     to_str = lambda s: ", ".join(sorted(s)) if s else "нет"
 
+    res = (
+        f"1. Туры только из Вояж:\n   {to_str(only_v)}\n\n"
+        f"2. Туры только из РейнаТур:\n   {to_str(only_r)}\n\n"
+        f"3. Одинаковые туры:\n   {to_str(common)}\n\n"
+        f"4. Перечни равны? {'ДА' if v == r else 'НЕТ'}\n\n"
+    )
+
     text_results.config(state=NORMAL)
     text_results.delete("1.0", END)
-    text_results.insert(END, f"=" * 55 + "\n\n")
-    text_results.insert(END, f"1. Туры только из Вояж:\n   {to_str(only_v)}\n\n")
-    text_results.insert(END, f"2. Туры только из РейнаТур:\n   {to_str(only_r)}\n\n")
-    text_results.insert(END, f"3. Одинаковые туры:\n   {to_str(common)}\n\n")
-    text_results.insert(END, f"4. Перечни равны? {'ДА' if v == r else 'НЕТ'}\n\n")
-    text_results.insert(END, "=" * 55)
+    text_results.insert("1.0", res)
     text_results.config(state=DISABLED)
 
-    label_info.config(text=f"Вояж:{len(v)} | РейнаТур:{len(r)} | Общих:{len(common)}")
+    label_info.config(text=f"Вояж: {len(v)} | РейнаТур: {len(r)} | Общих: {len(common)}")
 
 
 def reset_fields():
     text_voyage.delete("1.0", END)
-    text_voyage.insert("1.0", "Мексика, Канада, Израиль, Италия")
+    text_voyage.insert("1.0", DEFAULT_V)
     text_reina.delete("1.0", END)
-    text_reina.insert("1.0", "Англия, Япония, Канада, ЮАР")
+    text_reina.insert("1.0", DEFAULT_R)
+
     text_results.config(state=NORMAL)
     text_results.delete("1.0", END)
     text_results.config(state=DISABLED)
     label_info.config(text="Готов к сравнению")
 
-
+# Интерфейс
 root = Tk()
 root.title("Сравнение туров")
-root.geometry("700x600")
+root.geometry("650x580")
 
-Label(root, text="Сравнение туристических агентств", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=2,
-                                                                                      pady=10)
-Label(root, text="Введите страны (через пробел или запятую)").grid(row=1, column=0, columnspan=2)
+Label(root, text="Сравнение туристических агентств", font=("Arial", 14, "bold")).pack(pady=5)
+Label(root, text="Введите страны (через пробел или запятую)", fg="gray").pack(pady=2)
 
-frame_input = LabelFrame(root, text="Введите туры")
-frame_input.grid(row=2, column=0, columnspan=2, sticky="nsew", padx=20, pady=5)
+frame_input = LabelFrame(root, text=" Введите туры ", padx=10, pady=10)
+frame_input.pack(fill=X, padx=15, pady=5)
 
-frame_voyage = LabelFrame(frame_input, text="Вояж")
-frame_voyage.grid(row=0, column=0, sticky="nsew", padx=(0, 5))
-text_voyage = Text(frame_voyage, height=8, width=30)
-text_voyage.grid(row=0, column=0, pady=5)
-text_voyage.insert("1.0", "Мексика, Канада, Израиль, Италия")
+# Блок Вояж
+f_voyage = Frame(frame_input)
+f_voyage.pack(side=LEFT, expand=True, fill=BOTH, padx=5)
+Label(f_voyage, text="Вояж").pack(anchor=W)
+text_voyage = Text(f_voyage, height=6, width=25)
+text_voyage.pack(fill=BOTH, expand=True)
+text_voyage.insert("1.0", DEFAULT_V)
 
-frame_reina = LabelFrame(frame_input, text="РейнаТур")
-frame_reina.grid(row=0, column=1, sticky="nsew", padx=(5, 0))
-text_reina = Text(frame_reina, height=8, width=30)
-text_reina.grid(row=0, column=0, pady=5)
-text_reina.insert("1.0", "Англия, Япония, Канада, ЮАР")
+# Блок РейнаТур
+f_reina = Frame(frame_input)
+f_reina.pack(side=RIGHT, expand=True, fill=BOTH, padx=5)
+Label(f_reina, text="РейнаТур").pack(anchor=W)
+text_reina = Text(f_reina, height=6, width=25)
+text_reina.pack(fill=BOTH, expand=True)
+text_reina.insert("1.0", DEFAULT_R)
 
-frame_input.columnconfigure(0, weight=1)
-frame_input.columnconfigure(1, weight=1)
-
+# Кнопки управления
 frame_buttons = Frame(root)
-frame_buttons.grid(row=3, column=0, columnspan=2, pady=10)
-Button(frame_buttons, text="Сравнить", command=compare_tours, padx=20, pady=5).grid(row=0, column=0, padx=10)
-Button(frame_buttons, text="Сбросить", command=reset_fields, padx=20, pady=5).grid(row=0, column=1, padx=10)
+frame_buttons.pack(pady=10)
+Button(frame_buttons, text="Сравнить", command=compare_tours, width=15, bg="#e1e1e1").pack(side=LEFT, padx=5)
+Button(frame_buttons, text="Сбросить", command=reset_fields, width=15).pack(side=LEFT, padx=5)
 
-label_info = Label(root, text="Готов к сравнению")
-label_info.grid(row=4, column=0, columnspan=2)
+label_info = Label(root, text="Готов к сравнению", font=("Arial", 10, "italic"))
+label_info.pack(pady=2)
 
-frame_results = LabelFrame(root, text="Результаты")
-frame_results.grid(row=5, column=0, columnspan=2, sticky="nsew", padx=20, pady=10)
-text_results = Text(frame_results, height=12)
-text_results.grid(row=0, column=0, sticky="nsew")
-text_results.config(state=DISABLED)
-
-frame_results.columnconfigure(0, weight=1)
-frame_results.rowconfigure(0, weight=1)
-root.columnconfigure(0, weight=1)
-root.rowconfigure(5, weight=1)
+# Блок результатов
+frame_results = LabelFrame(root, text=" Результаты ")
+frame_results.pack(fill=BOTH, expand=True, padx=15, pady=10)
+text_results = Text(frame_results, height=10, state=DISABLED, bg="#f9f9f9")
+text_results.pack(fill=BOTH, expand=True, padx=5, pady=5)
 
 root.mainloop()
