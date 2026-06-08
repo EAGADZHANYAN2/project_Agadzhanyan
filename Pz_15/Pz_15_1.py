@@ -50,7 +50,7 @@ with sq.connect('abiturient.db') as con:
     for row in abiturient.fetchall():
         print(f" - {row[0]} {row[1]} (Дата: {row[2]})")
 
-    abiturient.execute("UPDATE Анкета SET awards = 'да' WHERE specialty = 'Математика'")
+    abiturient.execute("UPDATE Анкета SET awards = 'да' WHERE specialty = 'Математик'")
 
     abiturient.execute("UPDATE Анкета SET specialty = 'Программирование' WHERE specialty = 'Информатика'")
 
