@@ -62,6 +62,6 @@ with sq.connect('abiturient.db') as con:
 
     abiturient.execute("DELETE FROM Анкета WHERE reg_number = 8")
 
-    abiturient.execute("DELETE FROM Анкета WHERE awards = 'нет' AND specialty = 'Экономика'")
+    abiturient.execute("DELETE FROM Анкета WHERE awards = 'нет' AND specialty = 'Экономист'")
 
     print_table("Итоговая таблица после проведения 3-х операций удаления")
